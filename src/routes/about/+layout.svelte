@@ -6,7 +6,7 @@
 </script>
 
 <main>
-	<p>{data}</p>
+	<h1>About page</h1>
 	<slot />
 </main>
 

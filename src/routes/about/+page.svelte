@@ -4,7 +4,6 @@
 </script>
 
 <main>
-	<h1>About page</h1>
 	<p>{data.user.first_name}</p>
 </main>
 
