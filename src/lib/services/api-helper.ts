@@ -136,6 +136,8 @@ export const apiHelper = {
 			thumbnail:
 				'https://cdn.britannica.com/49/94449-050-ECB0E7C2/Angkor-Wat-temple-complex-Camb.jpg'
 		});
+		console.log(result);
+
 		return result;
 	},
 	getServiceSuggestion: async (serviceId: string) => {

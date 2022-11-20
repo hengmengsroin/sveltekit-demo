@@ -1,9 +1,9 @@
 import { browser } from '$app/environment';
 import axios from 'axios';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import LocalAuthServices from './local-auth-services';
-const baseUrl = process.env.BASE_URL;
-const apiClient = axios.create({ baseURL: baseUrl + '/v1' });
-const apiClientV2 = axios.create({ baseURL: baseUrl + '/v2' });
+const apiClient = axios.create({ baseURL: PUBLIC_BASE_URL + '/v1' });
+const apiClientV2 = axios.create({ baseURL: PUBLIC_BASE_URL + '/v2' });
 
 async function postRequest(url: string, data: any, method?: string, withToken = false) {
 	let res: any = null;

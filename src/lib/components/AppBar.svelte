@@ -24,11 +24,9 @@
 	.main {
 		display: flex;
 		flex-direction: row;
-		padding: 0.6rem 3rem;
-
-		// height: 3rem;
+		padding: 0.6rem 15%;
 		background-color: aquamarine;
-
+		height: 100%;
 		.logo {
 			.img {
 				height: 2rem;

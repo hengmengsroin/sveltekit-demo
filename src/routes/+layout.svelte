@@ -4,14 +4,14 @@
 	import Footer from '$lib/components/Footer.svelte';
 </script>
 
-<div class="main">
+<main>
 	<AppBar />
 	<slot />
 	<Footer />
-</div>
+</main>
 
 <style lang="scss">
-	.main {
+	main {
 		display: flex;
 		width: 100%;
 		height: 100%;
