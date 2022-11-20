@@ -1,4 +1,11 @@
-<div class="main"><h1 class="text-3xl font-bold underline">Hello world!</h1></div>
+<script lang="ts">
+	import ProvinceList from '$lib/components/ProvinceList.svelte';
+	import { Alert } from 'flowbite-svelte';
+</script>
+
+<div class="main">
+	<ProvinceList />
+</div>
 
 <style lang="scss">
 	.main {
