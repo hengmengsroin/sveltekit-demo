@@ -26,7 +26,7 @@
 		flex-direction: row;
 		padding: 0.6rem 15%;
 		background-color: aquamarine;
-		height: 100%;
+		min-height: 60px;
 		.logo {
 			.img {
 				height: 2rem;

@@ -25,7 +25,6 @@
 		flex-direction: row;
 		width: 100%;
 		overflow-x: scroll;
-
 		justify-content: flex-start;
 		align-items: flex-start;
 		align-content: center;
