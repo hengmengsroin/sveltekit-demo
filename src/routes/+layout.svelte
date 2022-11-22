@@ -6,7 +6,9 @@
 
 <main>
 	<AppBar />
-	<slot />
+	<div class="content">
+		<slot />
+	</div>
 	<Footer />
 </main>
 
@@ -14,7 +16,9 @@
 	main {
 		display: flex;
 		width: 100%;
-		height: 100%;
 		flex-direction: column;
+		.content{
+			padding: 0 15%;
+		}
 	}
 </style>

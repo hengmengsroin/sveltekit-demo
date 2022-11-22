@@ -1,9 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import placeHolder from '$lib/assets/images/no-pictures.png';
 	export let item: any;
+	function openDetail(){
+		let name: string = item.name;
+		let serviceName =name.replaceAll(' ' , '-');
+		let url ="/service/"+ item._id + "-"+ serviceName;
+		goto(url);
+	}
 </script>
 
-<button class="main">
+<button class="main" on:click={openDetail}>
 	<div class="image">
 		<img src={item.thumbnails[0] ?? placeHolder} alt="thumbnail" />
 	</div>
@@ -23,7 +30,6 @@
 		box-shadow: 1px grey;
 
 		.image {
-			width: 250px;
 			aspect-ratio: 3/2;
 			img {
 				width: 100%;

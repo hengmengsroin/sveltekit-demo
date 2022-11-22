@@ -2,6 +2,7 @@
 	import { apiHelper } from '$lib/services/api-helper';
 	import { activeProvince } from '$lib/store';
 	import { Spinner } from 'flowbite-svelte';
+	import Loading from './Loading.svelte';
 	import PromotionTile from './PromotionTile.svelte';
 
 	let proviceId = 'all';
@@ -10,7 +11,7 @@
 
 <main>
 	{#await apiHelper.getPromotionSlides(proviceId)}
-		<Spinner />
+		<Loading/>
 	{:then { data }}
 		{#each data as item}
 			<PromotionTile {item} />
@@ -26,6 +27,7 @@
 		display: flex;
 		flex-direction: row;
 		width: 100%;
+		height: 100%;
 		overflow-x: auto;
 		padding: 10px 0px;
 	}

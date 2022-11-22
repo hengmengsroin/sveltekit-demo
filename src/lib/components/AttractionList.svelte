@@ -3,6 +3,7 @@
 	import { activeProvince } from '$lib/store';
 	import { Spinner } from 'flowbite-svelte';
 	import AttractionTile from './AttractionTile.svelte';
+	import Loading from './Loading.svelte';
 
 	let proviceId = 'all';
 	activeProvince.subscribe((value) => (proviceId = value));
@@ -10,7 +11,7 @@
 
 <main>
 	{#await apiHelper.service.getAll(0, 1000, 1, 21, proviceId, '', [], '')}
-		<Spinner />
+		<Loading/>
 	{:then { data }}
 		<div class="grid">
 			{#each data as item}
@@ -28,7 +29,6 @@
 		overflow-x: auto;
 		padding: 10px 0px;
 		height: 100%;
-
 		.grid {
 			display: grid;
 			column-gap: 50px;
