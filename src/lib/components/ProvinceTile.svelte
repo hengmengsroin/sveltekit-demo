@@ -27,7 +27,7 @@
 		align-items: flex-start;
 		align-content: center;
 		margin: 10px;
-		box-shadow: 1px grey;
+		box-shadow: 0px 0px 0px 1px rgba(131, 131, 131, 0.541);
 
 		.image {
 			width: 150px;
@@ -36,7 +36,7 @@
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				border-radius: 10px;
+				border-radius: 9px 9px 0 0;
 			}
 		}
 		.name {
@@ -46,6 +46,7 @@
 	}
 
 	.active {
+		box-shadow: 0px 0px 0px 1px rgba(250, 26, 26, 0.541);
 		border: 1px red solid;
 	}
 </style>

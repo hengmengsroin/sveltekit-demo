@@ -10,6 +10,7 @@
 </script>
 
 <main>
+	<h2>Attraction List</h2>
 	{#await apiHelper.service.getAll(0, 1000, 1, 21, proviceId, '', [], '')}
 		<Loading/>
 	{:then { data }}
@@ -24,7 +25,7 @@
 <style lang="scss">
 	main {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		width: 100%;
 		overflow-x: auto;
 		padding: 10px 0px;
@@ -33,6 +34,12 @@
 			display: grid;
 			column-gap: 50px;
 			grid-template-columns: auto auto auto;
+		}
+
+		h2{
+			font-size: larger;
+			font-weight: 900;
+			padding: 10px 0;
 		}
 	}
 </style>
