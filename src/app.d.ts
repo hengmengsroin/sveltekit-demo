@@ -1,8 +1,43 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 // and what to do when importing types
+declare global {
+	type CollectionModel = { _id: string; name: string; thumbnail: string; services: string[] };
+	type ContactUsData = {
+		email: string;
+		fullname: string;
+		phone_number: string;
+		subject: string;
+		message?: string;
+	};
+	type IUser = {
+		access_token: string;
+		email: string;
+		first_name: string;
+		image: string;
+		last_name: string;
+		login_method: string;
+		name: string;
+		refresh_token: string;
+		refresh_token_expires_at: number;
+		role: IRole;
+		token_expires_at: number;
+		user_id: string;
+	};
+
+	type IRole = {
+		_id: string;
+		name: string;
+	};
+}
 declare namespace App {
-	// interface Locals {}
+	interface Locals {
+		user: {
+			_id: string;
+			token: string;
+			role: string;
+		};
+	}
 	// interface PageData {}
 	// interface Error {}
 	// interface Platform {}

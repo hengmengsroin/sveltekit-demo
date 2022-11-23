@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import logo from '$lib/assets/images/logo.png';
+	import { page } from '$app/stores';
 	import { Button, Input } from 'flowbite-svelte';
+	import { applyAction, enhance } from '$app/forms';
 	function goHome() {
 		goto('/');
 	}
@@ -19,9 +21,26 @@
 		<Input type="text" id="first_name" placeholder="John" />
 	</div>
 	<div class="spacer" />
-	<div class="login">
-		<Button on:click={goLogin}>Login</Button>
-	</div>
+	{#if !$page.data.user}
+		<div class="login">
+			<Button on:click={goLogin}>Login</Button>
+		</div>
+	{:else}
+		<div class="login">
+			<form
+				action="/logout"
+				method="POST"
+				use:enhance={() => {
+					return async ({ result }) => {
+						invalidateAll();
+						await applyAction(result);
+					};
+				}}
+			>
+				<Button type="submit">Logout</Button>
+			</form>
+		</div>
+	{/if}
 </div>
 
 <style lang="scss">
