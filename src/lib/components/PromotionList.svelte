@@ -1,17 +1,15 @@
 <script lang="ts">
 	import { apiHelper } from '$lib/services/api-helper';
 	import { activeProvince } from '$lib/store';
-	import { Spinner } from 'flowbite-svelte';
 	import Loading from './Loading.svelte';
 	import PromotionTile from './PromotionTile.svelte';
-
 	let proviceId = 'all';
 	activeProvince.subscribe((value) => (proviceId = value));
 </script>
 
 <main>
 	{#await apiHelper.getPromotionSlides(proviceId)}
-		<Loading/>
+		<Loading />
 	{:then { data }}
 		{#each data as item}
 			<PromotionTile {item} />

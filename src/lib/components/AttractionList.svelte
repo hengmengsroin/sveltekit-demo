@@ -11,8 +11,8 @@
 
 <main>
 	<h2>Attraction List</h2>
-	{#await apiHelper.service.getAll(0, 1000, 1, 21, proviceId, '', [], '')}
-		<Loading/>
+	{#await apiHelper.service.getAll(0, 1000, 1, 50, proviceId, '', [], '')}
+		<Loading />
 	{:then { data }}
 		<div class="grid">
 			{#each data as item}
@@ -36,7 +36,7 @@
 			grid-template-columns: auto auto auto;
 		}
 
-		h2{
+		h2 {
 			font-size: larger;
 			font-weight: 900;
 			padding: 10px 0;

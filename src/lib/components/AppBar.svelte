@@ -1,19 +1,26 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import logo from '$lib/assets/images/logo.png';
 	import { Button, Input } from 'flowbite-svelte';
+	function goHome() {
+		goto('/');
+	}
+	function goLogin() {
+		goto('/login');
+	}
 </script>
 
 <div class="main">
-	<div class="logo">
+	<button class="logo" on:click={goHome}>
 		<img class="img" src={logo} alt="logo" />
-	</div>
+	</button>
 	<div class="spacer" />
 	<div class="search">
 		<Input type="text" id="first_name" placeholder="John" />
 	</div>
 	<div class="spacer" />
 	<div class="login">
-		<Button>Login</Button>
+		<Button on:click={goLogin}>Login</Button>
 	</div>
 </div>
 

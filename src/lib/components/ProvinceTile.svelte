@@ -12,7 +12,7 @@
 
 <button class="main" class:active={isActive} on:click={changeToActive}>
 	<div class="image">
-		<img src={province.thumbnail} alt="thumbnail" />
+		<img src={province.thumbnail} alt="thumbnail" loading="lazy" />
 	</div>
 	<div class="name">{province.name}</div>
 </button>

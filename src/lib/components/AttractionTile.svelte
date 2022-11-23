@@ -2,17 +2,17 @@
 	import { goto } from '$app/navigation';
 	import placeHolder from '$lib/assets/images/no-pictures.png';
 	export let item: any;
-	function openDetail(){
+	function openDetail() {
 		let name: string = item.name;
-		let serviceName =name.replaceAll(' ' , '-');
-		let url ="/service/"+ item._id + "-"+ serviceName;
+		let serviceName = name.replaceAll(' ', '-');
+		let url = '/service/' + item._id + '-' + serviceName;
 		goto(url);
 	}
 </script>
 
 <button class="main" on:click={openDetail}>
 	<div class="image">
-		<img src={item.thumbnails[0] ?? placeHolder} alt="thumbnail" />
+		<img src={item.thumbnails[0] ?? placeHolder} alt="thumbnail" loading="lazy" />
 	</div>
 	<div class="name">{item.name}</div>
 </button>

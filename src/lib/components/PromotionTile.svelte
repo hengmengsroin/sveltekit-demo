@@ -4,7 +4,7 @@
 </script>
 
 <main>
-	<img src={item.thumbnail ?? placeHolder} alt="thumbnail" />
+	<img src={item.thumbnail ?? placeHolder} alt="thumbnail" loading="lazy" />
 </main>
 
 <style lang="scss">
