@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import OpenHourSection from '$lib/components/OpenHourSection.svelte';
 	import ReviewListSection from '$lib/components/ReviewListSection.svelte';
 	import Section from '$lib/components/Section.svelte';
@@ -7,15 +9,23 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 	let { service } = data;
-	console.log(service);
+	function gotoPurchasePage() {
+		goto(location.pathname + '/purchase');
+	}
 </script>
 
 <main>
 	<div class="image">
 		<img src={service.thumbnails[0]} alt="thumbnail" />
 	</div>
-	<div class="title">
-		{service.name}
+	<div class="flex flex-row justify-between title">
+		<div>{service.name}</div>
+		{#if $page.data.user}
+			<button
+				class="border px-4 bg-orange-600 text-white rounded-md text-lg"
+				on:click={gotoPurchasePage}>Purchase</button
+			>
+		{/if}
 	</div>
 	<div class="merchant">
 		{service.merchant.name}

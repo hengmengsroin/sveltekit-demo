@@ -27,8 +27,6 @@ const login: Action = async ({ cookies, request }) => {
 	let maxAge = 0;
 	try {
 		const authenticatedUser = await apiHelper.loginWithEmail({ email: username, password });
-		console.log(authenticatedUser);
-
 		credential._id = authenticatedUser._id;
 		credential.token = authenticatedUser.token;
 		credential.role = authenticatedUser.role.name;

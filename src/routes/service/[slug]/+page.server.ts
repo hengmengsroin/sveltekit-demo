@@ -1,10 +1,7 @@
 import { apiHelper } from '$lib/services/api-helper';
 import type { PageServerLoad } from './$types';
-import { error, redirect } from '@sveltejs/kit';
-export const load: PageServerLoad = async ({ params, locals }) => {
-	if (!locals.user) {
-		throw redirect(302, '/login');
-	}
+import { error } from '@sveltejs/kit';
+export const load: PageServerLoad = async ({ params }) => {
 	const { slug } = params;
 	const id = slug.split('-')[0];
 	try {
