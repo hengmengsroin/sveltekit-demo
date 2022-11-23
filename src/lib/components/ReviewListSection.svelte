@@ -16,7 +16,7 @@
 		{#each data as review}
 			<div class="review">
 				<div class="header">
-					<Avatar border size={'md'} src={review.author.profile_img} />
+					<Avatar size={'md'} src={review.author.profile_img} />
 					<div class="nameBox">
 						<div class="name">{review.author.first_name + ' ' + review.author.last_name}</div>
 						<div class="rating">

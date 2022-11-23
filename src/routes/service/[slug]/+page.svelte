@@ -97,7 +97,7 @@
 
 				.image {
 					aspect-ratio: 1;
-					height: 100%;
+					max-height: 500px;
 					margin: 10px 0;
 					img {
 						width: 100%;
