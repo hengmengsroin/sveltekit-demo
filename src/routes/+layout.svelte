@@ -17,7 +17,7 @@
 		display: flex;
 		width: 100%;
 		flex-direction: column;
-		.content{
+		.content {
 			padding: 0 15%;
 		}
 	}
