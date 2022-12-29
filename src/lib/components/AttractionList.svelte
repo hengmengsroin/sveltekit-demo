@@ -5,13 +5,13 @@
 	import AttractionTile from './AttractionTile.svelte';
 	import Loading from './Loading.svelte';
 
-	let proviceId = 'all';
-	activeProvince.subscribe((value) => (proviceId = value));
+	let provinceId = 'all';
+	activeProvince.subscribe((value) => (provinceId = value));
 </script>
 
 <main>
 	<h2>Attraction List</h2>
-	{#await apiHelper.service.getAll(0, 1000, 1, 50, proviceId, '', [], '')}
+	{#await apiHelper.service.getAll(0, 1000, 1, 60, provinceId, '', [], '')}
 		<Loading />
 	{:then { data }}
 		<div class="grid">
@@ -37,7 +37,8 @@
 		}
 
 		h2 {
-			font-size: larger;
+			color: blue;
+			font-size: 1.2rem;
 			font-weight: 900;
 			padding: 10px 0;
 		}

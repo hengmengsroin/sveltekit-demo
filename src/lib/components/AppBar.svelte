@@ -50,7 +50,7 @@
 	.main {
 		display: flex;
 		flex-direction: row;
-		padding: 0.6rem 15%;
+		padding: 0.6rem 5%;
 		background-color: aquamarine;
 		min-height: 60px;
 		.logo {

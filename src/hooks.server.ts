@@ -23,3 +23,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// load page as normal
 	return await resolve(event);
 };
+import { SvelteKitAuth } from '@auth/sveltekit';
+import { GITHUB_ID, GITHUB_SECRET } from '$env/static/private';

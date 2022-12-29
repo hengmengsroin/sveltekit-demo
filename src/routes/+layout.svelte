@@ -18,7 +18,7 @@
 		width: 100%;
 		flex-direction: column;
 		.content {
-			padding: 0 15%;
+			padding: 0 5%;
 		}
 	}
 </style>

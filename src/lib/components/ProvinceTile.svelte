@@ -30,7 +30,8 @@
 		box-shadow: 0px 0px 0px 1px rgba(131, 131, 131, 0.541);
 
 		.image {
-			width: 150px;
+			width: 100%;
+			height: 100px;
 			aspect-ratio: 3/2;
 			img {
 				width: 100%;
@@ -46,7 +47,7 @@
 	}
 
 	.active {
-		box-shadow: 0px 0px 0px 1px rgba(250, 26, 26, 0.541);
-		border: 1px red solid;
+		box-shadow: 0px 0px 0px 1px rgba(197, 197, 197, 0.541);
+		border: 1px blue solid;
 	}
 </style>
