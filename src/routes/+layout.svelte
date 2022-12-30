@@ -1,16 +1,20 @@
 <script lang="ts">
 	import '../app.css';
+	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
 	import AppBar from '$lib/components/AppBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	const queryClient = new QueryClient();
 </script>
 
-<main>
-	<AppBar />
-	<div class="content">
-		<slot />
-	</div>
-	<Footer />
-</main>
+<QueryClientProvider client={queryClient}>
+	<main>
+		<AppBar />
+		<div class="content">
+			<slot />
+		</div>
+		<Footer />
+	</main>
+</QueryClientProvider>
 
 <style lang="scss">
 	main {

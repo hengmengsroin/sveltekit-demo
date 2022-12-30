@@ -76,6 +76,7 @@ export interface IUser {
   refresh_token_expires_at: number;
   role: IRole;
   token_expires_at: number;
+  id: string;
   user_id: string;
 }
 

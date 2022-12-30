@@ -1,25 +1,36 @@
 <script lang="ts">
+	import useAllAttractions from '$lib/hooks/useAllAttractions';
 	import { apiHelper } from '$lib/services/api-helper';
 	import { activeProvince } from '$lib/store';
-	import { Spinner } from 'flowbite-svelte';
 	import AttractionTile from './AttractionTile.svelte';
 	import Loading from './Loading.svelte';
 
 	let provinceId = 'all';
-	activeProvince.subscribe((value) => (provinceId = value));
+	const queryResult = useAllAttractions({
+		minPrice: 0,
+		maxPrice: 1000,
+		page: 1,
+		count: 30,
+		province: provinceId
+	});
+	activeProvince.subscribe((value) => {
+		provinceId = value;
+	});
 </script>
 
 <main>
 	<h2>Attraction List</h2>
-	{#await apiHelper.service.getAll(0, 1000, 1, 60, provinceId, '', [], '')}
+	{#if $queryResult.isLoading}
 		<Loading />
-	{:then { data }}
+	{:else if $queryResult.error}
+		<span>An error has occurred: {$queryResult.error}</span>
+	{:else}
 		<div class="grid">
-			{#each data as item}
+			{#each $queryResult.data?.data ?? [] as item}
 				<AttractionTile {item} />
 			{/each}
 		</div>
-	{/await}
+	{/if}
 </main>
 
 <style lang="scss">

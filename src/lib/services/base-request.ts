@@ -1,18 +1,22 @@
-import { browser } from '$app/environment';
 import axios from 'axios';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import LocalAuthServices from './local-auth-services';
 const apiClient = axios.create({ baseURL: PUBLIC_BASE_URL + '/v1' });
 const apiClientV2 = axios.create({ baseURL: PUBLIC_BASE_URL + '/v2' });
 
-async function postRequest(url: string, data: any, method?: string, withToken = false) {
+async function postRequest(
+	url: string,
+	data: any,
+	method?: string,
+	token: string | undefined = undefined
+) {
 	let res: any = null;
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
+	// console.log({ authorization });
 
-	const headers = { Authorization: withToken ? authorization : '' };
+	const headers = { Authorization: authorization };
 	switch (method) {
 		case 'put':
 			res = await apiClient.put(url, data, {
@@ -38,14 +42,18 @@ async function postRequest(url: string, data: any, method?: string, withToken = 
 	}
 }
 
-async function postRequestForQr(url: string, data: any, method?: string, withToken = false) {
+async function postRequestForQr(
+	url: string,
+	data: any,
+	method?: string,
+	token: string | undefined = undefined
+) {
 	let res: any = null;
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
-
-	const headers = { Authorization: withToken ? authorization : '' };
+	const headers = { Authorization: authorization };
 	switch (method) {
 		case 'put':
 			res = await apiClient.put(url, data, {
@@ -72,13 +80,18 @@ async function postRequestForQr(url: string, data: any, method?: string, withTok
 	}
 }
 
-async function postRequestV2(url: string, data: any, method?: string, withToken = false) {
+async function postRequestV2(
+	url: string,
+	data: any,
+	method?: string,
+	token: string | undefined = undefined
+) {
 	let res: any = null;
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
-	const headers = { Authorization: withToken ? authorization : '' };
+	const headers = { Authorization: authorization };
 	switch (method) {
 		case 'put':
 			res = await apiClientV2.put(url, data, {
@@ -104,16 +117,20 @@ async function postRequestV2(url: string, data: any, method?: string, withToken 
 	}
 }
 
-async function getRequest(url: string, params?: any, method = 'get', withToken = false) {
+async function getRequest(
+	url: string,
+	params?: any,
+	method = 'get',
+	token: string | undefined = undefined
+) {
 	let res: any = null;
-	// console.log("params", params);
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
 	const headers = { Authorization: authorization };
 	const option = {
-		headers: withToken ? headers : {},
+		headers: headers,
 		params: params
 	};
 	switch (method) {
@@ -143,17 +160,16 @@ async function getRequestForHTMLResponse(
 	url: string,
 	params?: any,
 	method = 'get',
-	withToken = false
+	token: string | undefined = undefined
 ) {
 	let res: any = null;
-	// console.log("params", params);
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
 	const headers = { Authorization: authorization };
 	const option = {
-		headers: withToken ? headers : {},
+		headers: headers,
 		params: params
 	};
 	switch (method) {
@@ -170,16 +186,20 @@ async function getRequestForHTMLResponse(
 	}
 }
 
-async function getRequestV2(url: string, params?: any, method = 'get', withToken = false) {
+async function getRequestV2(
+	url: string,
+	params?: any,
+	method = 'get',
+	token: string | undefined = undefined
+) {
 	let res: any = null;
-	// console.log("params", params);
-	let authorization = 'Bearer ';
-	if (browser && localStorage) {
-		authorization += LocalAuthServices.getToken();
+	let authorization = '';
+	if (token) {
+		authorization = 'Bearer ' + token;
 	}
 	const headers = { Authorization: authorization };
 	const option = {
-		headers: withToken ? headers : {},
+		headers: headers,
 		params: params
 	};
 	switch (method) {

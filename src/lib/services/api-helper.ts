@@ -1,4 +1,5 @@
 import type { ContactUsData } from '$lib/models/model';
+import type { IServiceDetail } from '$lib/models/service_detail.model';
 import {
 	getRequest,
 	getRequestForHTMLResponse,
@@ -21,7 +22,26 @@ export const apiHelper = {
 	},
 	service: {
 		getOne: async (id: string) => {
-			const result = await getRequest(`services/mobile/${id}`);
+			const result: IServiceDetail = await getRequest(`services/mobile/${id}`);
+			result.can_book = false;
+			if (result.is_opening) {
+				result.can_book = true;
+				if (result.price) {
+					if (result.price.sale_price) {
+						result.can_book = result.price.sale_price !== 0;
+					} else {
+						result.can_book = false;
+					}
+				} else {
+					result.can_book = false;
+				}
+				if (result.can_book) {
+					result.can_book = !result.direct_booking_only;
+				}
+			}
+			if (result.serving_status !== 'open') {
+				result.can_book = false;
+			}
 			return result;
 		},
 		getAll: async (
@@ -32,7 +52,8 @@ export const apiHelper = {
 			province?: string,
 			search?: string,
 			services: string[] = [],
-			type?: string
+			type?: string,
+			genre?: string
 		) => {
 			const query = {
 				'price[gte]': minPrice,
@@ -42,7 +63,8 @@ export const apiHelper = {
 				province: province,
 				search: search,
 				services: services,
-				type: type
+				type: type,
+				genre
 			};
 
 			return getRequest('services/mobile', query);
@@ -83,9 +105,10 @@ export const apiHelper = {
 		const result = await getRequest(`collections/${id}`);
 		return result;
 	},
-	getFeaturingPosts: async (provinceId?: string) => {
+	getFeaturingPosts: async (provinceId?: string, userId?: string) => {
 		const result = await postRequest('me/suggested_trending_attraction', {
-			province: provinceId
+			province: provinceId,
+			user_id: userId
 		});
 		return result;
 	},
@@ -142,16 +165,16 @@ export const apiHelper = {
 		const result = await getRequest(`services/mobile/${serviceId}/suggestion`, {});
 		return result;
 	},
-	getOneTourist: async (id: string) => {
-		const result = await getRequest(`tourists/${id}`);
+	getOneTourist: async (id: string, token: string) => {
+		const result = await getRequest(`tourists/${id}`, {}, 'get', token);
 		return result;
 	},
-	getAllTouristsMobile: async (name = '') => {
-		const result = await getRequest(`tourists/mobile?name=${name}`, {}, 'get', true);
+	getAllTouristsMobile: async (name = '', token: string) => {
+		const result = await getRequest(`tourists/mobile?name=${name}`, {}, 'get', token);
 		return result;
 	},
-	updateTouristProfile: async (id: string, data: any) => {
-		const result = await postRequest(`tourists/${id}`, data, 'patch', true);
+	updateTouristProfile: async (id: string, data: any, token: string) => {
+		const result = await postRequest(`tourists/${id}`, data, 'patch', token);
 		return result;
 	},
 	getMyTickets: async (id: string) => {
@@ -170,39 +193,39 @@ export const apiHelper = {
 		return ticket;
 	},
 	// voucher section...................
-	getMyValidVouchers: async (params: any) => {
-		const result = await getRequest('me/my_valid_vouchers', params, 'get', true);
+	getMyValidVouchers: async (params: any, token: string) => {
+		const result = await getRequest('me/my_valid_vouchers', params, 'get', token);
 		return result;
 	},
 
-	getMyExpiredVouchers: async (params: any) => {
-		const result = await getRequest('me/my_expired_vouchers', params, 'get', true);
+	getMyExpiredVouchers: async (params: any, token: string) => {
+		const result = await getRequest('me/my_expired_vouchers', params, 'get', token);
 		return result;
 	},
 
-	applyVoucherCode: async (params: any) => {
-		const result = await getRequest('vouchers/apply', params, 'get', true);
+	applyVoucherCode: async (params: any, token: string) => {
+		const result = await getRequest('vouchers/apply', params, 'get', token);
 		return result;
 	},
 
 	// affiliate programme...................................................
-	getAffiliateProgram: async (params: any) => {
-		const result = await getRequest('me/my_referral_program', params, 'get', true);
+	getAffiliateProgram: async (params: any, token: string) => {
+		const result = await getRequest('me/my_referral_program', params, 'get', token);
 		return result;
 	},
 
-	joinReferralProgram: async () => {
-		const result = await getRequest('me/join_referral_program', {}, 'get', true);
+	joinReferralProgram: async (token: string) => {
+		const result = await getRequest('me/join_referral_program', {}, 'get', token);
 		return result;
 	},
 
 	// reward.................................
-	getMyReward: async (params: any) => {
-		const result = getRequest('me/my_rewards', params, 'get', true);
+	getMyReward: async (params: any, token?: string) => {
+		const result = getRequest('me/my_rewards', params, 'get', token);
 		return result;
 	},
 
-	transferPoint: async (point: number, userId: string) => {
+	transferPoint: async (point: number, userId: string, token: string) => {
 		const result = postRequest(
 			'tourists/transfer_point',
 			{
@@ -210,19 +233,19 @@ export const apiHelper = {
 				receiver_id: userId
 			},
 			'post',
-			true
+			token
 		);
 		return result;
 	},
 
 	// enquiry.................................
-	addContactUs: async (params: ContactUsData) => {
-		const result = await postRequest('enquiries', params, 'post', true);
+	addContactUs: async (params: ContactUsData, token: string) => {
+		const result = await postRequest('enquiries', params, 'post', token);
 		return result;
 	},
 
-	changePassword: async (userId: string, params: any) => {
-		const result = await postRequest(`users/${userId}/change_pwd`, params, 'patch', true);
+	changePassword: async (userId: string, params: any, token: string) => {
+		const result = await postRequest(`users/${userId}/change_pwd`, params, 'patch', token);
 		return result;
 	},
 
@@ -257,6 +280,16 @@ export const apiHelper = {
 
 	checkQRCode: async (body: { qrcode: string }) => {
 		const result = await postRequestForQr('/auth/qrcode', body, 'post');
+		return result;
+	},
+
+	getMyFavoriteAttractions: async (token: string) => {
+		const result = getRequest('me/favorite_attractions', {}, 'get', token);
+		return result;
+	},
+
+	getRecentViewedAttractions: async (token: string) => {
+		const result = getRequest('/me/recently_viewed_attractions', {}, 'get', token);
 		return result;
 	}
 };
